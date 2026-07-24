@@ -34,6 +34,25 @@
       color: var(--text);
     }
 
+    .language-picker {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.82);
+      color: var(--muted);
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 650;
+      text-align: center;
+      appearance: none;
+      -webkit-appearance: none;
+      backdrop-filter: blur(18px);
+    }
+
     main {
       min-height: 100vh;
       display: flex;
@@ -214,25 +233,41 @@
   </style>
 </head>
 <body>
+  <select class="language-picker" id="language" aria-label="Langue">
+    <option value="fr">FR</option>
+    <option value="en">EN</option>
+    <option value="es">ES</option>
+  </select>
   <main>
     <section class="hero" id="landing" aria-label="Présentation fyndAll">
       <img class="logo" src="assets/logo/fyndall_logo_master.svg" alt="fyndAll">
 
-      <h1>Retrouve tes documents. Simplement.</h1>
+      <h1 data-fr="Retrouve tes documents. Simplement."
+          data-en="Find your documents. Effortlessly."
+          data-es="Encuentra tus documentos. Sin esfuerzo.">Retrouve tes documents. Simplement.</h1>
 
-      <p class="subtitle">
+      <p class="subtitle"
+         data-fr="Ajoute, analyse et retrouve tes documents personnels en quelques secondes. Pas de classement compliqué. Juste ce dont tu as besoin, quand tu en as besoin."
+         data-en="Add, analyze and find your personal documents in seconds. No complicated filing. Just what you need, when you need it."
+         data-es="Añade, analiza y encuentra tus documentos personales en segundos. Sin clasificaciones complicadas. Justo lo que necesitas, cuando lo necesitas.">
         Ajoute, analyse et retrouve tes documents personnels en quelques secondes.
         Pas de classement compliqué. Juste ce dont tu as besoin, quand tu en as besoin.
       </p>
 
       <div class="actions">
-        <a class="button primary" href="https://app.fyndall.app/">Se connecter</a>
-        <a class="button secondary" href="confidentialite.html">Confidentialité</a>
+        <a class="button primary" href="https://app.fyndall.app/"
+           data-fr="Ouvrir fyndAll" data-en="Open fyndAll" data-es="Abrir fyndAll">Ouvrir fyndAll</a>
+        <a class="button secondary" href="faq.html"
+           data-fr="Aide & FAQ" data-en="Help & FAQ" data-es="Ayuda y FAQ">Aide & FAQ</a>
+        <a class="button secondary" href="confidentialite.html"
+           data-fr="Confidentialité" data-en="Privacy" data-es="Privacidad">Confidentialité</a>
       </div>
 
-      <div class="beta" aria-label="Version bêta privée">
+      <div class="beta">
         <span class="dot" aria-hidden="true"></span>
-        Bêta privée — accès réservé aux testeurs invités
+        <span data-fr="Disponible sur mobile et sur le web"
+              data-en="Available on mobile and web"
+              data-es="Disponible en móvil y web">Disponible sur mobile et sur le web</span>
       </div>
 
       <footer>
@@ -241,65 +276,32 @@
       </footer>
     </section>
 
-    <section class="tester-panel" id="testeurs" aria-label="Rejoindre les testeurs fyndAll">
-      <img class="logo" src="assets/logo/fyndall_logo_master.svg" alt="fyndAll">
-
-      <h1>Tu veux tester fyndAll ?</h1>
-
-      <p class="subtitle">
-        La version mobile est actuellement distribuée à un nombre limité de testeurs.
-        Écris-nous et nous t’indiquerons comment rejoindre l’équipe de test.
-      </p>
-
-      <a class="tester-email" href="mailto:contact@fyndall.app?subject=Je souhaite rejoindre les testeurs fyndAll&body=Bonjour,%0D%0A%0D%0AJe souhaite rejoindre le programme de test de fyndAll.">
-        contact@fyndall.app
-      </a>
-
-      <br>
-      <a class="back-link" href="#landing">Retour</a>
-    </section>
   </main>
 <script>
-  const primaryButton = document.querySelector('.button.primary');
-  const landing = document.querySelector('#landing');
-  const testerPanel = document.querySelector('#testeurs');
-  const backLink = document.querySelector('.back-link');
+  const supported = ['fr', 'en', 'es'];
+  const picker = document.querySelector('#language');
+  const pageCopy = {
+    fr: ['fyndAll — Retrouvez vos documents', 'Ajoutez, analysez et retrouvez vos documents personnels en quelques secondes avec fyndAll.'],
+    en: ['fyndAll — Find your documents', 'Add, analyze and find your personal documents in seconds with fyndAll.'],
+    es: ['fyndAll — Encuentra tus documentos', 'Añade, analiza y encuentra tus documentos personales en segundos con fyndAll.']
+  };
 
-  function showTesterPanel() {
-    if (!landing || !testerPanel) return;
-    landing.style.display = 'none';
-    testerPanel.classList.add('is-visible');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function showLanding() {
-    if (!landing || !testerPanel) return;
-    testerPanel.classList.remove('is-visible');
-    landing.style.display = '';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  if (primaryButton) {
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-
-    if (isMobile) {
-      primaryButton.textContent = 'Rejoindre la bêta';
-      primaryButton.href = '#testeurs';
-      primaryButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        showTesterPanel();
-      });
-    } else {
-      primaryButton.href = 'https://app.fyndall.app/';
-    }
-  }
-
-  if (backLink) {
-    backLink.addEventListener('click', (event) => {
-      event.preventDefault();
-      showLanding();
+  function setLanguage(language) {
+    const selected = supported.includes(language) ? language : 'fr';
+    document.documentElement.lang = selected;
+    document.title = pageCopy[selected][0];
+    document.querySelector('meta[name="description"]').content = pageCopy[selected][1];
+    document.querySelectorAll('[data-fr]').forEach((element) => {
+      element.textContent = element.dataset[selected];
     });
+    picker.value = selected;
+    localStorage.setItem('fyndall_site_language', selected);
   }
+
+  const browserLanguage = (navigator.language || 'fr').slice(0, 2).toLowerCase();
+  const savedLanguage = localStorage.getItem('fyndall_site_language');
+  picker.addEventListener('change', (event) => setLanguage(event.target.value));
+  setLanguage(supported.includes(savedLanguage) ? savedLanguage : browserLanguage);
 </script>
 </body>
 </html>

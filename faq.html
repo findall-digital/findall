@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aide & FAQ — fyndAll</title>
+  <meta name="description" content="Comprendre comment ajouter, retrouver et protéger vos documents avec fyndAll.">
+  <link rel="icon" href="assets/favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/favicon_180.png">
+  <style>
+    :root {
+      --blue: #2f6f9f;
+      --text: #111827;
+      --muted: #667085;
+      --line: rgba(17, 24, 39, .09);
+      --surface: rgba(255, 255, 255, .82);
+      --background: #f6f8fb;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% 0, rgba(106, 154, 192, .2), transparent 30rem),
+        linear-gradient(180deg, #fff 0%, var(--background) 100%);
+    }
+    a { color: inherit; }
+    .shell { width: min(900px, calc(100% - 36px)); margin: 0 auto; }
+    nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .logo { width: 128px; display: block; }
+    .language {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 12px;
+      color: var(--muted);
+      background: rgba(255,255,255,.75);
+      font: inherit;
+      font-size: .88rem;
+      font-weight: 650;
+      text-align: center;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    header { padding: 72px 0 46px; text-align: center; }
+    h1 {
+      margin: 0;
+      font-size: clamp(2.8rem, 8vw, 5.8rem);
+      line-height: .96;
+      letter-spacing: -.065em;
+    }
+    .intro {
+      max-width: 640px;
+      margin: 24px auto 0;
+      color: var(--muted);
+      font-size: 1.12rem;
+      line-height: 1.65;
+    }
+    .search {
+      position: relative;
+      max-width: 660px;
+      margin: 34px auto 0;
+    }
+    .search input {
+      width: 100%;
+      min-height: 56px;
+      padding: 0 20px 0 52px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      outline: none;
+      background: rgba(255,255,255,.86);
+      color: var(--text);
+      font: inherit;
+      font-size: 1rem;
+      box-shadow: 0 18px 55px rgba(47,111,159,.1);
+    }
+    .search span {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 1.2rem;
+    }
+    .group { margin: 52px 0; }
+    .group h2 {
+      margin: 0 0 18px;
+      font-size: 1.45rem;
+      letter-spacing: -.025em;
+    }
+    details {
+      margin: 10px 0;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+    summary {
+      padding: 20px 54px 20px 22px;
+      cursor: pointer;
+      list-style: none;
+      position: relative;
+      font-weight: 680;
+      line-height: 1.4;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after {
+      content: "+";
+      position: absolute;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--blue);
+      font-size: 1.35rem;
+      font-weight: 500;
+    }
+    details[open] summary::after { content: "−"; }
+    .answer {
+      padding: 0 22px 22px;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+    .answer p { margin: 0; }
+    .empty {
+      display: none;
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      text-align: center;
+      color: var(--muted);
+      background: var(--surface);
+    }
+    .contact {
+      margin: 72px 0;
+      padding: 38px;
+      border-radius: 28px;
+      text-align: center;
+      color: #fff;
+      background: linear-gradient(145deg, #24597f, #6a9ac0);
+      box-shadow: 0 24px 70px rgba(47,111,159,.2);
+    }
+    .contact h2 { margin: 0; font-size: 2rem; }
+    .contact p { color: rgba(255,255,255,.82); line-height: 1.6; }
+    .contact a {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      padding: 0 24px;
+      border-radius: 999px;
+      color: var(--blue);
+      background: #fff;
+      font-weight: 680;
+      text-decoration: none;
+    }
+    footer {
+      padding: 34px 0 48px;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    footer a { color: var(--blue); font-weight: 650; text-decoration: none; }
+    [hidden] { display: none !important; }
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 26px, 900px); }
+      header { padding-top: 52px; }
+      .contact { padding: 30px 22px; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="shell">
+    <a href="/" aria-label="fyndAll"><img class="logo" src="assets/logo/fyndall_logo_master.svg" alt="fyndAll"></a>
+    <select class="language" aria-label="Langue" id="language">
+      <option value="fr">FR</option>
+      <option value="en">EN</option>
+      <option value="es">ES</option>
+    </select>
+  </nav>
+
+  <main class="shell">
+    <header>
+      <h1 data-fr="Aide & FAQ" data-en="Help & FAQ" data-es="Ayuda y FAQ">Aide & FAQ</h1>
+      <p class="intro"
+         data-fr="Les réponses essentielles pour profiter de fyndAll, comprendre son fonctionnement et garder le contrôle de tes documents."
+         data-en="Essential answers to get the most from fyndAll, understand how it works and stay in control of your documents."
+         data-es="Las respuestas esenciales para aprovechar fyndAll, entender cómo funciona y mantener el control de tus documentos.">
+        Les réponses essentielles pour profiter de fyndAll.
+      </p>
+      <label class="search">
+        <span aria-hidden="true">⌕</span>
+        <input id="faq-search" type="search" autocomplete="off"
+               placeholder="Rechercher une question…"
+               data-placeholder-fr="Rechercher une question…"
+               data-placeholder-en="Search for a question…"
+               data-placeholder-es="Buscar una pregunta…">
+      </label>
+    </header>
+
+    <section class="group" data-faq-group>
+      <h2 data-fr="Bien démarrer" data-en="Getting started" data-es="Primeros pasos">Bien démarrer</h2>
+      <details data-faq>
+        <summary data-fr="Comment fonctionne fyndAll ?" data-en="How does fyndAll work?" data-es="¿Cómo funciona fyndAll?">Comment fonctionne fyndAll ?</summary>
+        <div class="answer">
+          <p data-fr="Tu ajoutes un document par scan, import, partage depuis une autre application ou archive par e-mail. fyndAll extrait son texte, prépare les informations utiles puis le rend recherchable."
+             data-en="Add a document by scanning, importing, sharing from another app or using email archiving. fyndAll extracts its text, prepares useful information and makes it searchable."
+             data-es="Añade un documento escaneándolo, importándolo, compartiéndolo desde otra app o archivándolo por correo. fyndAll extrae el texto, prepara la información útil y permite buscarlo."></p>
+        </div>
+      </details>
+      <details data-faq>
+        <summary data-fr="Quels documents puis-je ajouter ?" data-en="Which documents can I add?" data-es="¿Qué documentos puedo añadir?">Quels documents puis-je ajouter ?</summary>
+        <div class="answer">
+          <p data-fr="Tu peux scanner des pages, importer un PDF ou partager un PDF et plusieurs images compatibles vers fyndAll. Les limites de pages et de partage dépendent de ton offre effective."
+             data-en="You can scan pages, import a PDF, or share a PDF and multiple compatible images to fyndAll. Page and sharing limits depend on your effective plan."
+             data-es="Puedes escanear páginas, importar un PDF o compartir un PDF y varias imágenes compatibles con fyndAll. Los límites dependen de tu plan efectivo."></p>
+        </div>
+      </details>
+      <details data-faq>
+        <summary data-fr="Dois-je classer mes documents ?" data-en="Do I need to file my documents?" data-es="¿Tengo que clasificar mis documentos?">Dois-je classer mes documents ?</summary>
+        <div class="answer">
+          <p data-fr="Non. fyndAll prépare automatiquement les éléments utiles pour la recherche. Tu peux néanmoins parcourir ta bibliothèque et utiliser les informations proposées lorsque cela t’aide."
+             data-en="No. fyndAll automatically prepares useful search information. You can still browse your library and use the suggested information whenever helpful."
+             data-es="No. fyndAll prepara automáticamente la información útil para la búsqueda. También puedes explorar tu biblioteca y usar la información sugerida cuando te resulte útil."></p>
+        </div>
+      </details>
+    </section>
+
+    <section class="group" data-faq-group>
+      <h2 data-fr="Recherche et voix" data-en="Search and voice" data-es="Búsqueda y voz">Recherche et voix</h2>
+      <details data-faq>
+        <summary data-fr="Comment rechercher un document ?" data-en="How do I search for a document?" data-es="¿Cómo busco un documento?">Comment rechercher un document ?</summary>
+        <div class="answer">
+          <p data-fr="Saisis quelques mots présents dans le titre, le contenu OCR ou les informations préparées. La recherche reste limitée aux documents auxquels ton compte a accès."
+             data-en="Enter a few words from the title, OCR content or prepared information. Search remains limited to documents your account can access."
+             data-es="Escribe algunas palabras del título, del contenido OCR o de la información preparada. La búsqueda se limita a los documentos a los que tiene acceso tu cuenta."></p>
+        </div>
+      </details>
+      <details data-faq>
+        <summary data-fr="Comment utiliser le micro dans fyndAll ?" data-en="How do I use the microphone in fyndAll?" data-es="¿Cómo uso el micrófono en fyndAll?">Comment utiliser le micro dans fyndAll ?</summary>
+        <div class="answer">
+          <p data-fr="Touche le micro sur l’accueil puis prononce ta recherche. La reconnaissance suit la langue choisie dans les réglages de fyndAll : français, anglais ou espagnol."
+             data-en="Tap the microphone on the home screen and say your search. Recognition follows the language selected in fyndAll settings: French, English or Spanish."
+             data-es="Toca el micrófono en la pantalla de inicio y di tu búsqueda. El reconocimiento sigue el idioma elegido en los ajustes de fyndAll: francés, inglés o español."></p>
+        </div>
+      </details>
+      <details data-faq>
+        <summary data-fr="Comment rechercher avec Siri ?" data-en="How do I search with Siri?" data-es="¿Cómo busco con Siri?">Comment rechercher avec Siri ?</summary>
+        <div class="answer">
+          <p data-fr="Dis « Dis Siri, cherche un document dans fyndAll », puis réponds à la question de Siri. Siri utilise sa propre langue configurée sur l’iPhone. La commande ouvre fyndAll sans contourner la connexion ni tes droits."
+             data-en="Say “Siri, search for a document in fyndAll,” then answer Siri’s question. Siri uses the language configured on the iPhone. The command opens fyndAll without bypassing sign-in or your rights."
+             data-es="Di « Siri, busca un documento en fyndAll » y responde a la pregunta de Siri. Siri usa el idioma configurado en el iPhone. El comando abre fyndAll sin evitar el inicio de sesión ni tus derechos."></p>
+        </div>
+      </details>
+    </section>
+
+    <section class="group" data-faq-group>
+      <h2 data-fr="Compte, offres et confidentialité" data-en="Account, plans and privacy" data-es="Cuenta, planes y privacidad">Compte, offres et confidentialité</h2>
+      <details data-faq>
+        <summary data-fr="Puis-je utiliser fyndAll sans compte ?" data-en="Can I use fyndAll without an account?" data-es="¿Puedo usar fyndAll sin una cuenta?">Puis-je utiliser fyndAll sans compte ?</summary>
+        <div class="answer">
+          <p data-fr="Le parcours de découverte permet de commencer simplement. Sécuriser ensuite ton accès avec un compte te permet de retrouver durablement ton espace et les droits associés."
+             data-en="The discovery journey lets you start simply. Securing access with an account then lets you reliably return to your space and associated rights."
+             data-es="El recorrido de descubrimiento te permite empezar fácilmente. Proteger después el acceso con una cuenta te permite volver a tu espacio y conservar los derechos asociados."></p>
+        </div>
+      </details>
+      <details data-faq>
+        <summary data-fr="Comment les limites de mon offre sont-elles appliquées ?" data-en="How are my plan limits applied?" data-es="¿Cómo se aplican los límites de mi plan?">Comment les limites de mon offre sont-elles appliquées ?</summary>
+        <div class="answer">
+          <p data-fr="Les droits effectifs sont calculés de manière centralisée puis appliqués à l’ajout, au traitement et aux fonctions disponibles. Un raccourci, un partage ou une commande vocale ne peut pas les contourner."
+             data-en="Effective rights are calculated centrally and applied to document intake, processing and available features. A shortcut, share or voice command cannot bypass them."
+             data-es="Los derechos efectivos se calculan de forma centralizada y se aplican a la incorporación, el procesamiento y las funciones disponibles. Ningún atajo, acción de compartir o comando de voz puede evitarlos."></p>
+        </div>
+      </details>
+      <details data-faq>
+        <summary data-fr="Mes documents sont-ils visibles par les autres utilisateurs ?" data-en="Can other users see my documents?" data-es="¿Otros usuarios pueden ver mis documentos?">Mes documents sont-ils visibles par les autres utilisateurs ?</summary>
+        <div class="answer">
+          <p data-fr="Non. Les accès documentaires sont isolés entre propriétaires. fyndAll ne revend pas tes données. Consulte la politique de confidentialité pour le détail des traitements nécessaires au service."
+             data-en="No. Document access is isolated between owners. fyndAll does not sell your data. Read the privacy policy for details about processing required to provide the service."
+             data-es="No. El acceso a los documentos está aislado entre propietarios. fyndAll no vende tus datos. Consulta la política de privacidad para conocer los tratamientos necesarios para prestar el servicio."></p>
+        </div>
+      </details>
+    </section>
+
+    <div class="empty" id="empty"
+         data-fr="Aucune réponse ne correspond à cette recherche."
+         data-en="No answer matches this search."
+         data-es="Ninguna respuesta coincide con esta búsqueda.">Aucune réponse ne correspond à cette recherche.</div>
+
+    <section class="contact">
+      <h2 data-fr="Besoin d’aide ?" data-en="Need help?" data-es="¿Necesitas ayuda?">Besoin d’aide ?</h2>
+      <p data-fr="Une question reste sans réponse ? Écris à l’équipe fyndAll."
+         data-en="Still have a question? Contact the fyndAll team."
+         data-es="¿Aún tienes alguna pregunta? Escribe al equipo de fyndAll.">Une question reste sans réponse ?</p>
+      <a href="mailto:contact@fyndall.app">contact@fyndall.app</a>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <a href="/" data-fr="← Retour à l’accueil" data-en="← Back to home" data-es="← Volver al inicio">← Retour à l’accueil</a>
+    <a href="confidentialite.html" data-fr="Confidentialité" data-en="Privacy" data-es="Privacidad">Confidentialité</a>
+  </footer>
+
+  <script>
+    const supported = ['fr', 'en', 'es'];
+    const picker = document.querySelector('#language');
+    const search = document.querySelector('#faq-search');
+    const empty = document.querySelector('#empty');
+    const pageCopy = {
+      fr: ['Aide & FAQ — fyndAll', 'Comprendre comment ajouter, retrouver et protéger vos documents avec fyndAll.'],
+      en: ['Help & FAQ — fyndAll', 'Learn how to add, find and protect your documents with fyndAll.'],
+      es: ['Ayuda y FAQ — fyndAll', 'Descubre cómo añadir, encontrar y proteger tus documentos con fyndAll.']
+    };
+    let language = 'fr';
+
+    function applySearch() {
+      const query = search.value.trim().toLocaleLowerCase(language);
+      let visibleCount = 0;
+      document.querySelectorAll('[data-faq]').forEach((item) => {
+        const match = !query || item.textContent.toLocaleLowerCase(language).includes(query);
+        item.hidden = !match;
+        if (match) visibleCount += 1;
+      });
+      document.querySelectorAll('[data-faq-group]').forEach((group) => {
+        group.hidden = !group.querySelector('[data-faq]:not([hidden])');
+      });
+      empty.style.display = visibleCount ? 'none' : 'block';
+    }
+
+    function setLanguage(nextLanguage) {
+      language = supported.includes(nextLanguage) ? nextLanguage : 'fr';
+      document.documentElement.lang = language;
+      document.title = pageCopy[language][0];
+      document.querySelector('meta[name="description"]').content = pageCopy[language][1];
+      document.querySelectorAll('[data-fr]').forEach((element) => {
+        element.textContent = element.dataset[language];
+      });
+      search.placeholder = search.dataset[`placeholder${language[0].toUpperCase()}${language.slice(1)}`];
+      picker.value = language;
+      localStorage.setItem('fyndall_site_language', language);
+      applySearch();
+    }
+
+    const browserLanguage = (navigator.language || 'fr').slice(0, 2).toLowerCase();
+    const savedLanguage = localStorage.getItem('fyndall_site_language');
+    picker.addEventListener('change', (event) => setLanguage(event.target.value));
+    search.addEventListener('input', applySearch);
+    setLanguage(supported.includes(savedLanguage) ? savedLanguage : browserLanguage);
+  </script>
+</body>
+</html>

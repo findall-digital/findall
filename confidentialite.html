@@ -52,59 +52,122 @@
     .back {
       margin-top: 40px;
     }
+
+    .language {
+      float: right;
+      padding: 8px 11px;
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      background: #fff;
+      color: #6b7280;
+      font: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-align: center;
+      appearance: none;
+      -webkit-appearance: none;
+    }
   </style>
 </head>
 <body>
   <main>
-    <h1>Politique de confidentialité – fyndAll</h1>
-    <p class="date">Dernière mise à jour : juin 2026</p>
+    <select class="language" id="language" aria-label="Langue">
+      <option value="fr">FR</option>
+      <option value="en">EN</option>
+      <option value="es">ES</option>
+    </select>
+    <h1 data-fr="Politique de confidentialité – fyndAll"
+        data-en="Privacy policy – fyndAll"
+        data-es="Política de privacidad – fyndAll">Politique de confidentialité – fyndAll</h1>
+    <p class="date" data-fr="Dernière mise à jour : juin 2026"
+       data-en="Last updated: June 2026"
+       data-es="Última actualización: junio de 2026">Dernière mise à jour : juin 2026</p>
 
-    <p>
+    <p data-fr="fyndAll est une application mobile de gestion documentaire personnelle permettant d’ajouter, scanner, analyser et rechercher des documents."
+       data-en="fyndAll is a personal document management application for adding, scanning, analyzing and searching documents."
+       data-es="fyndAll es una aplicación personal de gestión documental que permite añadir, escanear, analizar y buscar documentos.">
       fyndAll est une application mobile de gestion documentaire personnelle permettant
       d’ajouter, scanner, analyser et rechercher des documents.
     </p>
 
-    <h2>Données traitées</h2>
-    <p>
+    <h2 data-fr="Données traitées" data-en="Data processed" data-es="Datos tratados">Données traitées</h2>
+    <p data-fr="L’application peut traiter les documents ajoutés par l’utilisateur, les images issues du scan, le texte extrait par OCR, ainsi que des informations techniques nécessaires au fonctionnement du service."
+       data-en="The application may process documents added by the user, scanned images, text extracted by OCR and technical information required to operate the service."
+       data-es="La aplicación puede tratar los documentos añadidos por el usuario, las imágenes escaneadas, el texto extraído mediante OCR y la información técnica necesaria para prestar el servicio.">
       L’application peut traiter les documents ajoutés par l’utilisateur, les images issues
       du scan, le texte extrait par OCR, ainsi que des informations techniques nécessaires
       au fonctionnement du service.
     </p>
 
-    <h2>Utilisation des données</h2>
-    <p>
+    <h2 data-fr="Utilisation des données" data-en="Use of data" data-es="Uso de los datos">Utilisation des données</h2>
+    <p data-fr="Les données sont utilisées uniquement pour fournir les fonctionnalités de l’application : stockage documentaire, analyse OCR, classement, recherche et amélioration de l’expérience utilisateur."
+       data-en="Data is used only to provide application features: document storage, OCR analysis, organization, search and user experience improvements."
+       data-es="Los datos se utilizan únicamente para ofrecer las funciones de la aplicación: almacenamiento de documentos, análisis OCR, organización, búsqueda y mejora de la experiencia.">
       Les données sont utilisées uniquement pour fournir les fonctionnalités de l’application :
       stockage documentaire, analyse OCR, classement, recherche et amélioration de l’expérience utilisateur.
     </p>
 
-    <h2>Documents et données sensibles</h2>
-    <p>
+    <h2 data-fr="Documents et données sensibles" data-en="Documents and sensitive data" data-es="Documentos y datos sensibles">Documents et données sensibles</h2>
+    <p data-fr="Les utilisateurs doivent vérifier la nature des documents qu’ils ajoutent et respecter les règles applicables aux informations sensibles ou confidentielles."
+       data-en="Users should check the nature of the documents they add and comply with rules applicable to sensitive or confidential information."
+       data-es="Los usuarios deben comprobar la naturaleza de los documentos que añaden y respetar las normas aplicables a la información sensible o confidencial.">
       Pendant la phase de test bêta, les utilisateurs sont invités à éviter d’utiliser des documents
       contenant des informations sensibles ou confidentielles.
     </p>
 
-    <h2>Partage des données</h2>
-    <p>
+    <h2 data-fr="Partage des données" data-en="Data sharing" data-es="Compartición de datos">Partage des données</h2>
+    <p data-fr="Les données ne sont pas revendues. Certains traitements techniques peuvent s’appuyer sur des services tiers nécessaires au fonctionnement de l’application, notamment pour l’hébergement, l’analyse documentaire ou le traitement OCR."
+       data-en="Data is not sold. Some technical processing may rely on third-party services required to operate the application, including hosting, document analysis or OCR processing."
+       data-es="Los datos no se venden. Algunos tratamientos técnicos pueden apoyarse en servicios de terceros necesarios para el funcionamiento de la aplicación, como alojamiento, análisis documental o procesamiento OCR.">
       Les données ne sont pas revendues. Certains traitements techniques peuvent s’appuyer
       sur des services tiers nécessaires au fonctionnement de l’application, notamment pour
       l’hébergement, l’analyse documentaire ou le traitement OCR.
     </p>
 
-    <h2>Suppression des données</h2>
-    <p>
+    <h2 data-fr="Suppression des données" data-en="Data deletion" data-es="Eliminación de datos">Suppression des données</h2>
+    <p data-fr="L’utilisateur peut supprimer ses documents depuis l’application. Pour toute demande complémentaire relative aux données, il peut contacter l’éditeur."
+       data-en="Users can delete their documents from the application. For any additional data request, they can contact the publisher."
+       data-es="Los usuarios pueden eliminar sus documentos desde la aplicación. Para cualquier solicitud adicional relacionada con sus datos, pueden contactar con el editor.">
       L’utilisateur peut supprimer ses documents depuis l’application. Pour toute demande
       complémentaire relative aux données, il peut contacter l’éditeur.
     </p>
 
-    <h2>Contact</h2>
-    <p>
+    <h2 data-fr="Contact" data-en="Contact" data-es="Contacto">Contact</h2>
+    <p data-fr="Pour toute question relative à la confidentialité :"
+       data-en="For any privacy-related question:"
+       data-es="Para cualquier pregunta relacionada con la privacidad:">
       Pour toute question relative à la confidentialité :
-      <a href="mailto:contact@fyndall.app">contact@fyndall.app</a>
     </p>
+    <p><a href="mailto:contact@fyndall.app">contact@fyndall.app</a></p>
 
     <p class="back">
-      <a href="/">Retour à l’accueil</a>
+      <a href="/" data-fr="Retour à l’accueil" data-en="Back to home" data-es="Volver al inicio">Retour à l’accueil</a>
     </p>
   </main>
+  <script>
+    const supported = ['fr', 'en', 'es'];
+    const picker = document.querySelector('#language');
+    const pageTitles = {
+      fr: 'Politique de confidentialité — fyndAll',
+      en: 'Privacy policy — fyndAll',
+      es: 'Política de privacidad — fyndAll'
+    };
+
+    function setLanguage(language) {
+      const selected = supported.includes(language) ? language : 'fr';
+      document.documentElement.lang = selected;
+      document.title = pageTitles[selected];
+      document.querySelectorAll('[data-fr]').forEach((element) => {
+        element.textContent = element.dataset[selected];
+      });
+      picker.value = selected;
+      localStorage.setItem('fyndall_site_language', selected);
+    }
+
+    const browserLanguage = (navigator.language || 'fr').slice(0, 2).toLowerCase();
+    const savedLanguage = localStorage.getItem('fyndall_site_language');
+    picker.addEventListener('change', (event) => setLanguage(event.target.value));
+    setLanguage(supported.includes(savedLanguage) ? savedLanguage : browserLanguage);
+  </script>
 </body>
 </html>
