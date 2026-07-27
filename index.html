@@ -255,7 +255,7 @@
       </p>
 
       <div class="actions">
-        <a class="button primary" href="https://app.fyndall.app/"
+        <a class="button primary" id="open-fyndall" href="https://app.fyndall.app/"
            data-fr="Ouvrir fyndAll" data-en="Open fyndAll" data-es="Abrir fyndAll">Ouvrir fyndAll</a>
         <a class="button secondary" href="faq.html"
            data-fr="Aide & FAQ" data-en="Help & FAQ" data-es="Ayuda y FAQ">Aide & FAQ</a>
@@ -280,10 +280,34 @@
 <script>
   const supported = ['fr', 'en', 'es'];
   const picker = document.querySelector('#language');
+  const openFyndallLink = document.querySelector('#open-fyndall');
+  const availabilityCopy = document.querySelector('.beta [data-fr]');
+  const userAgent = navigator.userAgent || '';
+  const isAndroidBrowser = /Android/i.test(userAgent);
+  const isAppleMobileBrowser =
+    /iPad|iPhone|iPod/i.test(userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isMobileBrowser = isAndroidBrowser || isAppleMobileBrowser;
+  const nativeAppUrl = 'fyndall://search';
   const pageCopy = {
     fr: ['fyndAll — Retrouvez vos documents', 'Ajoutez, analysez et retrouvez vos documents personnels en quelques secondes avec fyndAll.'],
     en: ['fyndAll — Find your documents', 'Add, analyze and find your personal documents in seconds with fyndAll.'],
     es: ['fyndAll — Encuentra tus documentos', 'Añade, analiza y encuentra tus documentos personales en segundos con fyndAll.']
+  };
+  const mobileOpenCopy = {
+    fr: 'Ouvrir l’app fyndAll',
+    en: 'Open the fyndAll app',
+    es: 'Abrir la app fyndAll'
+  };
+  const mobileAvailabilityCopy = {
+    fr: 'Application mobile actuellement disponible sur invitation',
+    en: 'The mobile app is currently available by invitation only',
+    es: 'La aplicación móvil está disponible actualmente solo por invitación'
+  };
+  const mobileNotInstalledCopy = {
+    fr: 'fyndAll ne semble pas installé. Pendant la phase de test, le téléchargement est réservé aux personnes préalablement invitées.',
+    en: 'fyndAll does not appear to be installed. During testing, downloads are restricted to people who have already been invited.',
+    es: 'Parece que fyndAll no está instalada. Durante la fase de pruebas, la descarga está reservada a las personas previamente invitadas.'
   };
 
   function setLanguage(language) {
@@ -294,13 +318,40 @@
     document.querySelectorAll('[data-fr]').forEach((element) => {
       element.textContent = element.dataset[selected];
     });
+    if (isMobileBrowser) {
+      openFyndallLink.textContent = mobileOpenCopy[selected];
+      availabilityCopy.textContent = mobileAvailabilityCopy[selected];
+    }
     picker.value = selected;
     localStorage.setItem('fyndall_site_language', selected);
+  }
+
+  function openNativeApp(event) {
+    if (!isMobileBrowser) return;
+
+    event.preventDefault();
+    let pageWasHidden = false;
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) pageWasHidden = true;
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.location.href = nativeAppUrl;
+
+    window.setTimeout(() => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      if (!pageWasHidden && !document.hidden) {
+        const selected = supported.includes(picker.value) ? picker.value : 'fr';
+        window.alert(mobileNotInstalledCopy[selected]);
+      }
+    }, 1600);
   }
 
   const browserLanguage = (navigator.language || 'fr').slice(0, 2).toLowerCase();
   const savedLanguage = localStorage.getItem('fyndall_site_language');
   picker.addEventListener('change', (event) => setLanguage(event.target.value));
+  openFyndallLink.addEventListener('click', openNativeApp);
   setLanguage(supported.includes(savedLanguage) ? savedLanguage : browserLanguage);
 </script>
 </body>
