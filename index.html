@@ -256,6 +256,7 @@
 
       <div class="actions">
         <a class="button primary" id="open-fyndall" href="https://app.fyndall.app/"
+           target="_blank" rel="noopener noreferrer"
            data-fr="Ouvrir fyndAll" data-en="Open fyndAll" data-es="Abrir fyndAll">Ouvrir fyndAll</a>
         <a class="button secondary" href="faq.html"
            data-fr="Aide & FAQ" data-en="Help & FAQ" data-es="Ayuda y FAQ">Aide & FAQ</a>
@@ -323,6 +324,7 @@
       availabilityCopy.textContent = mobileAvailabilityCopy[selected];
     }
     picker.value = selected;
+    openFyndallLink.href = `https://app.fyndall.app/?lang=${selected}`;
     localStorage.setItem('fyndall_site_language', selected);
   }
 
