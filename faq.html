@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aide & FAQ — fyndAll</title>
+  <title>Aide — fyndAll</title>
   <meta name="description" content="Comprendre comment ajouter, retrouver et protéger vos documents avec fyndAll.">
   <link rel="icon" href="assets/favicon/favicon.ico">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/favicon_180.png">
@@ -64,33 +64,7 @@
       font-size: 1.12rem;
       line-height: 1.65;
     }
-    .search {
-      position: relative;
-      max-width: 660px;
-      margin: 18px auto 0;
-    }
-    .search input {
-      width: 100%;
-      min-height: 56px;
-      padding: 0 20px 0 52px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      outline: none;
-      background: rgba(255,255,255,.86);
-      color: var(--text);
-      font: inherit;
-      font-size: 1rem;
-      box-shadow: 0 18px 55px rgba(47,111,159,.1);
-    }
-    .search span {
-      position: absolute;
-      left: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--muted);
-      font-size: 1.2rem;
-    }
-    .assistant {
+    .help-search {
       max-width: 720px;
       margin: 36px auto 0;
       padding: 24px;
@@ -100,12 +74,12 @@
       background: linear-gradient(145deg, rgba(255,255,255,.94), rgba(235,244,251,.9));
       box-shadow: 0 22px 65px rgba(47,111,159,.13);
     }
-    .assistant-heading {
+    .help-search-heading {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .assistant-mark {
+    .help-search-mark {
       display: grid;
       width: 42px;
       height: 42px;
@@ -116,26 +90,34 @@
       background: linear-gradient(145deg, var(--blue), #78a9ce);
       box-shadow: 0 10px 24px rgba(47,111,159,.2);
     }
-    .assistant h2 { margin: 0; font-size: 1.12rem; }
-    .assistant-intro { margin: 4px 0 0; color: var(--muted); line-height: 1.5; }
-    .assistant form { display: flex; gap: 10px; margin-top: 18px; }
-    .assistant input {
+    .help-search h2 { margin: 0; font-size: 1.12rem; }
+    .help-search-intro { margin: 4px 0 0; color: var(--muted); line-height: 1.5; }
+    .help-search form {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 16px 45px rgba(47,111,159,.09);
+    }
+    .help-search input {
       min-width: 0;
       flex: 1;
       min-height: 50px;
       padding: 0 17px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
+      border: 0;
       outline: none;
-      background: rgba(255,255,255,.9);
+      background: transparent;
       color: var(--text);
       font: inherit;
     }
-    .assistant input:focus, .search input:focus {
+    .help-search form:focus-within {
       border-color: rgba(47,111,159,.55);
       box-shadow: 0 0 0 4px rgba(47,111,159,.1);
     }
-    .assistant button {
+    .help-search button {
       min-height: 50px;
       padding: 0 20px;
       border: 0;
@@ -166,15 +148,6 @@
       color: var(--blue);
       background: rgba(255,255,255,.88);
       font-size: .86rem;
-    }
-    .filter-label {
-      display: block;
-      max-width: 660px;
-      margin: 22px auto 0;
-      color: var(--muted);
-      font-size: .86rem;
-      font-weight: 650;
-      text-align: left;
     }
     .group { margin: 52px 0; }
     .group h2 {
@@ -263,15 +236,15 @@
       header { padding-top: 52px; }
       .contact { padding: 30px 22px; }
       footer { flex-direction: column; }
-      .assistant { padding: 20px; }
-      .assistant form { flex-direction: column; }
-      .assistant button { width: 100%; }
+      .help-search { padding: 20px; }
+      .help-search form { flex-direction: column; }
+      .help-search button { width: 100%; }
     }
   </style>
 </head>
 <body>
   <nav class="shell">
-    <a href="/" aria-label="fyndAll"><img class="logo" src="assets/logo/fyndall_logo_master.svg" alt="fyndAll"></a>
+    <a id="logo-home-link" href="/" aria-label="fyndAll"><img class="logo" src="assets/logo/fyndall_logo_master.svg" alt="fyndAll"></a>
     <select class="language" aria-label="Langue" id="language">
       <option value="fr">FR</option>
       <option value="en">EN</option>
@@ -281,47 +254,35 @@
 
   <main class="shell">
     <header>
-      <h1 data-fr="Aide & FAQ" data-en="Help & FAQ" data-es="Ayuda y FAQ">Aide & FAQ</h1>
+      <h1 data-fr="Aide" data-en="Help" data-es="Ayuda">Aide</h1>
       <p class="intro"
          data-fr="Les réponses essentielles pour profiter de fyndAll, comprendre son fonctionnement et garder le contrôle de tes documents."
          data-en="Essential answers to get the most from fyndAll, understand how it works and stay in control of your documents."
          data-es="Las respuestas esenciales para aprovechar fyndAll, entender cómo funciona y mantener el control de tus documentos.">
         Les réponses essentielles pour profiter de fyndAll.
       </p>
-      <section class="assistant" aria-labelledby="assistant-title">
-        <div class="assistant-heading">
-          <span class="assistant-mark" aria-hidden="true">✦</span>
+      <section class="help-search" aria-labelledby="help-search-title">
+        <div class="help-search-heading">
+          <span class="help-search-mark" aria-hidden="true">✦</span>
           <div>
-            <h2 id="assistant-title" data-fr="Demande à l’assistant fyndAll" data-en="Ask the fyndAll assistant" data-es="Pregunta al asistente fyndAll">Demande à l’assistant fyndAll</h2>
-            <p class="assistant-intro"
-               data-fr="Décris simplement ce que tu veux faire. La réponse reste sur cette page et s’appuie uniquement sur l’aide validée."
-               data-en="Simply describe what you want to do. Your question stays on this page and the answer only uses validated help content."
-               data-es="Describe simplemente lo que quieres hacer. Tu pregunta permanece en esta página y la respuesta solo utiliza la ayuda validada.">Décris simplement ce que tu veux faire.</p>
+            <h2 id="help-search-title" data-fr="Que veux-tu savoir ?" data-en="What would you like to know?" data-es="¿Qué quieres saber?">Que veux-tu savoir ?</h2>
+            <p class="help-search-intro"
+               data-fr="Écris quelques mots : les questions se filtrent et fyndAll te propose la réponse la plus utile."
+               data-en="Enter a few words: questions are filtered and fyndAll suggests the most useful answer."
+               data-es="Escribe unas palabras: las preguntas se filtran y fyndAll te propone la respuesta más útil.">Écris quelques mots : les questions se filtrent et fyndAll te propose la réponse la plus utile.</p>
           </div>
         </div>
-        <form id="assistant-form">
-          <input id="assistant-question" type="text" autocomplete="off"
-                 aria-label="Question pour l’assistant fyndAll"
-                 placeholder="Ex. Comment récupérer tous mes documents ?"
-                 data-placeholder-fr="Ex. Comment récupérer tous mes documents ?"
-                 data-placeholder-en="E.g. How can I retrieve all my documents?"
-                 data-placeholder-es="Ej. ¿Cómo puedo recuperar todos mis documentos?">
+        <form id="help-search-form" role="search">
+          <input id="faq-search" type="search" autocomplete="off"
+                 aria-label="Rechercher dans l’aide fyndAll"
+                 placeholder="Pose une question…"
+                 data-placeholder-fr="Pose une question…"
+                 data-placeholder-en="Ask a question…"
+                 data-placeholder-es="Haz una pregunta…">
           <button type="submit" data-fr="Trouver la réponse" data-en="Find an answer" data-es="Buscar respuesta">Trouver la réponse</button>
         </form>
         <div class="assistant-result" id="assistant-result" role="status" aria-live="polite"></div>
       </section>
-      <span class="filter-label"
-            data-fr="Ou filtre toutes les questions"
-            data-en="Or filter all questions"
-            data-es="O filtra todas las preguntas">Ou filtre toutes les questions</span>
-      <label class="search">
-        <span aria-hidden="true">⌕</span>
-        <input id="faq-search" type="search" autocomplete="off"
-               placeholder="Rechercher une question…"
-               data-placeholder-fr="Rechercher une question…"
-               data-placeholder-en="Search for a question…"
-               data-placeholder-es="Buscar una pregunta…">
-      </label>
     </header>
 
     <section class="group" data-faq-group>
@@ -499,8 +460,8 @@
   </main>
 
   <footer class="shell">
-    <a href="/" data-fr="← Retour à l’accueil" data-en="← Back to home" data-es="← Volver al inicio">← Retour à l’accueil</a>
-    <a href="confidentialite.html" data-fr="Confidentialité" data-en="Privacy" data-es="Privacidad">Confidentialité</a>
+    <a id="home-link" href="/" data-fr="← Retour à l’accueil" data-en="← Back to home" data-es="← Volver al inicio">← Retour à l’accueil</a>
+    <a id="privacy-link" href="confidentialite.html" data-fr="Confidentialité" data-en="Privacy" data-es="Privacidad">Confidentialité</a>
   </footer>
 
   <script>
@@ -508,13 +469,15 @@
     const picker = document.querySelector('#language');
     const search = document.querySelector('#faq-search');
     const empty = document.querySelector('#empty');
-    const assistantForm = document.querySelector('#assistant-form');
-    const assistantQuestion = document.querySelector('#assistant-question');
+    const helpSearchForm = document.querySelector('#help-search-form');
     const assistantResult = document.querySelector('#assistant-result');
+    const logoHomeLink = document.querySelector('#logo-home-link');
+    const homeLink = document.querySelector('#home-link');
+    const privacyLink = document.querySelector('#privacy-link');
     const pageCopy = {
-      fr: ['Aide & FAQ — fyndAll', 'Comprendre comment ajouter, retrouver et protéger vos documents avec fyndAll.'],
-      en: ['Help & FAQ — fyndAll', 'Learn how to add, find and protect your documents with fyndAll.'],
-      es: ['Ayuda y FAQ — fyndAll', 'Descubre cómo añadir, encontrar y proteger tus documentos con fyndAll.']
+      fr: ['Aide — fyndAll', 'Comprendre comment ajouter, retrouver et protéger vos documents avec fyndAll.'],
+      en: ['Help — fyndAll', 'Learn how to add, find and protect your documents with fyndAll.'],
+      es: ['Ayuda — fyndAll', 'Descubre cómo añadir, encontrar y proteger tus documentos con fyndAll.']
     };
     let language = 'fr';
     const assistantCopy = {
@@ -622,10 +585,14 @@
     }
 
     function applySearch() {
-      const query = search.value.trim().toLocaleLowerCase(language);
+      const tokens = normalizedTokens(search.value);
       let visibleCount = 0;
       document.querySelectorAll('[data-faq]').forEach((item) => {
-        const match = !query || item.textContent.toLocaleLowerCase(language).includes(query);
+        const copy = faqCopy(item);
+        const words = normalizedTokens(`${copy.question} ${copy.answer}`);
+        const match = !tokens.length || tokens.every((token) =>
+          words.some((word) => word.includes(token) || token.includes(word))
+        );
         item.hidden = !match;
         if (match) visibleCount += 1;
       });
@@ -644,10 +611,15 @@
         element.textContent = element.dataset[language];
       });
       search.placeholder = search.dataset[`placeholder${language[0].toUpperCase()}${language.slice(1)}`];
-      assistantQuestion.placeholder = assistantQuestion.dataset[`placeholder${language[0].toUpperCase()}${language.slice(1)}`];
-      assistantQuestion.setAttribute('aria-label', document.querySelector('#assistant-title').textContent);
+      search.setAttribute('aria-label', document.querySelector('#help-search-title').textContent);
       picker.value = language;
+      logoHomeLink.href = `/?lang=${language}`;
+      homeLink.href = `/?lang=${language}`;
+      privacyLink.href = `confidentialite.html?lang=${language}`;
       localStorage.setItem('fyndall_site_language', language);
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', language);
+      window.history.replaceState(null, '', url);
       applySearch();
     }
 
@@ -656,15 +628,19 @@
     const query = new URLSearchParams(window.location.search);
     const requestedLanguage = query.get('lang');
     picker.addEventListener('change', (event) => {
-      assistantQuestion.value = '';
+      search.value = '';
       assistantResult.replaceChildren();
       assistantResult.classList.remove('is-visible');
       setLanguage(event.target.value);
     });
-    search.addEventListener('input', applySearch);
-    assistantForm.addEventListener('submit', (event) => {
+    search.addEventListener('input', () => {
+      assistantResult.replaceChildren();
+      assistantResult.classList.remove('is-visible');
+      applySearch();
+    });
+    helpSearchForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      answerQuestion(assistantQuestion.value);
+      answerQuestion(search.value);
     });
     setLanguage(
       supported.includes(requestedLanguage)
@@ -677,7 +653,8 @@
     const requestedTopic = query.get('topic');
     const requestedQuestion = query.get('q');
     if (requestedQuestion) {
-      assistantQuestion.value = requestedQuestion;
+      search.value = requestedQuestion;
+      applySearch();
       answerQuestion(requestedQuestion);
     }
     if (requestedTopic) {

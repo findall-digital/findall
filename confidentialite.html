@@ -100,7 +100,7 @@
 </head>
 <body>
   <nav class="shell">
-    <a href="/" aria-label="fyndAll"><img class="logo" src="assets/logo/fyndall_logo_master.svg" alt="fyndAll"></a>
+    <a id="logo-home-link" href="/" aria-label="fyndAll"><img class="logo" src="assets/logo/fyndall_logo_master.svg" alt="fyndAll"></a>
     <select class="language" id="language" aria-label="Langue">
       <option value="fr">FR</option>
       <option value="en">EN</option>
@@ -175,13 +175,16 @@
 
     </article>
     <footer>
-      <a href="/" data-fr="← Retour à l’accueil" data-en="← Back to home" data-es="← Volver al inicio">← Retour à l’accueil</a>
-      <a href="faq.html" data-fr="Aide & FAQ" data-en="Help & FAQ" data-es="Ayuda y FAQ">Aide & FAQ</a>
+      <a id="home-link" href="/" data-fr="← Retour à l’accueil" data-en="← Back to home" data-es="← Volver al inicio">← Retour à l’accueil</a>
+      <a id="faq-link" href="faq.html" data-fr="Aide" data-en="Help" data-es="Ayuda">Aide</a>
     </footer>
   </main>
   <script>
     const supported = ['fr', 'en', 'es'];
     const picker = document.querySelector('#language');
+    const logoHomeLink = document.querySelector('#logo-home-link');
+    const homeLink = document.querySelector('#home-link');
+    const faqLink = document.querySelector('#faq-link');
     const pageTitles = {
       fr: 'Politique de confidentialité — fyndAll',
       en: 'Privacy policy — fyndAll',
@@ -196,13 +199,26 @@
         element.textContent = element.dataset[selected];
       });
       picker.value = selected;
+      logoHomeLink.href = `/?lang=${selected}`;
+      homeLink.href = `/?lang=${selected}`;
+      faqLink.href = `faq.html?lang=${selected}`;
       localStorage.setItem('fyndall_site_language', selected);
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', selected);
+      window.history.replaceState(null, '', url);
     }
 
     const browserLanguage = (navigator.language || 'fr').slice(0, 2).toLowerCase();
     const savedLanguage = localStorage.getItem('fyndall_site_language');
+    const requestedLanguage = new URLSearchParams(window.location.search).get('lang');
     picker.addEventListener('change', (event) => setLanguage(event.target.value));
-    setLanguage(supported.includes(savedLanguage) ? savedLanguage : browserLanguage);
+    setLanguage(
+      supported.includes(requestedLanguage)
+        ? requestedLanguage
+        : supported.includes(savedLanguage)
+          ? savedLanguage
+          : browserLanguage
+    );
   </script>
 </body>
 </html>

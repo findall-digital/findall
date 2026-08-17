@@ -258,9 +258,9 @@
         <a class="button primary" id="open-fyndall" href="https://app.fyndall.app/"
            target="_blank" rel="noopener noreferrer"
            data-fr="Ouvrir fyndAll" data-en="Open fyndAll" data-es="Abrir fyndAll">Ouvrir fyndAll</a>
-        <a class="button secondary" href="faq.html"
-           data-fr="Aide & FAQ" data-en="Help & FAQ" data-es="Ayuda y FAQ">Aide & FAQ</a>
-        <a class="button secondary" href="confidentialite.html"
+        <a class="button secondary" id="faq-link" href="faq.html"
+           data-fr="Aide" data-en="Help" data-es="Ayuda">Aide</a>
+        <a class="button secondary" id="privacy-link" href="confidentialite.html"
            data-fr="Confidentialité" data-en="Privacy" data-es="Privacidad">Confidentialité</a>
       </div>
 
@@ -282,6 +282,8 @@
   const supported = ['fr', 'en', 'es'];
   const picker = document.querySelector('#language');
   const openFyndallLink = document.querySelector('#open-fyndall');
+  const faqLink = document.querySelector('#faq-link');
+  const privacyLink = document.querySelector('#privacy-link');
   const availabilityCopy = document.querySelector('.beta [data-fr]');
   const userAgent = navigator.userAgent || '';
   const isAndroidBrowser = /Android/i.test(userAgent);
@@ -325,7 +327,12 @@
     }
     picker.value = selected;
     openFyndallLink.href = `https://app.fyndall.app/?lang=${selected}`;
+    faqLink.href = `faq.html?lang=${selected}`;
+    privacyLink.href = `confidentialite.html?lang=${selected}`;
     localStorage.setItem('fyndall_site_language', selected);
+    const url = new URL(window.location.href);
+    url.searchParams.set('lang', selected);
+    window.history.replaceState(null, '', url);
   }
 
   function openNativeApp(event) {
@@ -352,9 +359,16 @@
 
   const browserLanguage = (navigator.language || 'fr').slice(0, 2).toLowerCase();
   const savedLanguage = localStorage.getItem('fyndall_site_language');
+  const requestedLanguage = new URLSearchParams(window.location.search).get('lang');
   picker.addEventListener('change', (event) => setLanguage(event.target.value));
   openFyndallLink.addEventListener('click', openNativeApp);
-  setLanguage(supported.includes(savedLanguage) ? savedLanguage : browserLanguage);
+  setLanguage(
+    supported.includes(requestedLanguage)
+      ? requestedLanguage
+      : supported.includes(savedLanguage)
+        ? savedLanguage
+        : browserLanguage
+  );
 </script>
 </body>
 </html>
