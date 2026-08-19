@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supprimer mon compte — fyndAll</title>
+  <meta name="description" content="Supprimer un compte fyndAll et les données associées.">
+  <link rel="icon" href="assets/favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/favicon_180.png">
+  <style>
+    :root {
+      --blue: #2f6f9f;
+      --blue-soft: rgba(106, 154, 192, .12);
+      --red: #c43d4d;
+      --text: #111827;
+      --muted: #667085;
+      --line: rgba(17, 24, 39, .09);
+      --surface: rgba(255, 255, 255, .88);
+      --background: #f6f8fb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 50% 0, rgba(106, 154, 192, .2), transparent 30rem),
+        linear-gradient(180deg, #fff 0%, var(--background) 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .shell { width: min(760px, calc(100% - 36px)); margin: 0 auto; }
+    nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .logo { width: 128px; display: block; }
+    .language {
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.78);
+      color: var(--muted);
+      font: inherit;
+      font-size: .88rem;
+      font-weight: 650;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    main { padding: 48px 0 72px; }
+    h1 {
+      margin: 0;
+      font-size: clamp(2.35rem, 7vw, 4.6rem);
+      line-height: 1.02;
+      letter-spacing: -.055em;
+    }
+    .intro { color: var(--muted); font-size: 1.1rem; margin: 18px 0 34px; }
+    .card {
+      padding: clamp(24px, 5vw, 38px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--surface);
+      box-shadow: 0 22px 65px rgba(47,111,159,.09);
+      margin-bottom: 18px;
+    }
+    .card h2 { margin: 0 0 10px; font-size: 1.28rem; }
+    .card p, .card li { color: var(--muted); }
+    .card ul { padding-left: 1.2rem; margin-bottom: 0; }
+    .actions { display: grid; gap: 12px; margin-top: 24px; }
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 50px;
+      padding: 13px 20px;
+      border-radius: 16px;
+      font-weight: 720;
+      text-decoration: none;
+      text-align: center;
+    }
+    .primary { background: var(--blue); color: #fff; }
+    .secondary { background: var(--blue-soft); color: var(--blue); }
+    .warning { border-left: 4px solid var(--red); }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 24px 4px 0;
+      font-size: .92rem;
+    }
+    footer a { color: var(--blue); font-weight: 650; text-decoration: none; }
+    @media (max-width: 560px) {
+      .shell { width: min(100% - 26px, 760px); }
+      main { padding-top: 32px; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="shell">
+    <a id="logo-home-link" href="/" aria-label="fyndAll">
+      <img class="logo" src="assets/logo/fyndall_logo_master.svg" alt="fyndAll">
+    </a>
+    <select class="language" id="language" aria-label="Langue">
+      <option value="fr">FR</option>
+      <option value="en">EN</option>
+      <option value="es">ES</option>
+    </select>
+  </nav>
+
+  <main class="shell">
+    <h1 data-fr="Supprimer mon compte"
+        data-en="Delete my account"
+        data-es="Eliminar mi cuenta">Supprimer mon compte</h1>
+    <p class="intro"
+       data-fr="Tu gardes le contrôle : tu peux récupérer tes documents, puis supprimer définitivement ton compte fyndAll et les données associées."
+       data-en="You stay in control: you can retrieve your documents, then permanently delete your fyndAll account and associated data."
+       data-es="Tú mantienes el control: puedes recuperar tus documentos y después eliminar definitivamente tu cuenta de fyndAll y los datos asociados.">
+      Tu gardes le contrôle : tu peux récupérer tes documents, puis supprimer définitivement ton compte fyndAll et les données associées.
+    </p>
+
+    <section class="card">
+      <h2 data-fr="Avant de supprimer"
+          data-en="Before deleting"
+          data-es="Antes de eliminar">Avant de supprimer</h2>
+      <p data-fr="Depuis fyndAll, demande d’abord ton archive privée si tu souhaites conserver une copie de tes documents actifs. Les liens reçus par e-mail restent temporaires."
+         data-en="In fyndAll, request your private archive first if you want to keep a copy of your active documents. Links sent by email remain temporary."
+         data-es="En fyndAll, solicita primero tu archivo privado si quieres conservar una copia de tus documentos activos. Los enlaces enviados por correo son temporales.">
+        Depuis fyndAll, demande d’abord ton archive privée si tu souhaites conserver une copie de tes documents actifs. Les liens reçus par e-mail restent temporaires.
+      </p>
+    </section>
+
+    <section class="card warning">
+      <h2 data-fr="Ce qui sera supprimé"
+          data-en="What will be deleted"
+          data-es="Qué se eliminará">Ce qui sera supprimé</h2>
+      <ul>
+        <li data-fr="ton compte et tes méthodes de connexion fyndAll ;"
+            data-en="your fyndAll account and sign-in methods;"
+            data-es="tu cuenta de fyndAll y tus métodos de inicio de sesión;">ton compte et tes méthodes de connexion fyndAll ;</li>
+        <li data-fr="tes documents, fichiers, textes OCR et informations de classement ;"
+            data-en="your documents, files, OCR text, and organization data;"
+            data-es="tus documentos, archivos, textos OCR e información de organización;">tes documents, fichiers, textes OCR et informations de classement ;</li>
+        <li data-fr="les données associées qui ne doivent pas être conservées pour une obligation légale."
+            data-en="associated data that does not need to be retained for a legal obligation."
+            data-es="los datos asociados que no deban conservarse por una obligación legal.">les données associées qui ne doivent pas être conservées pour une obligation légale.</li>
+      </ul>
+      <p data-fr="La suppression est irréversible après confirmation."
+         data-en="Deletion cannot be undone once confirmed."
+         data-es="La eliminación no se puede deshacer una vez confirmada.">La suppression est irréversible après confirmation.</p>
+    </section>
+
+    <section class="card">
+      <h2 data-fr="Lancer la demande"
+          data-en="Start the request"
+          data-es="Iniciar la solicitud">Lancer la demande</h2>
+      <p data-fr="Connecte-toi à fyndAll, puis ouvre Réglages → Accès et session → Supprimer mon compte. Une connexion récente et une confirmation explicite protègent cette action."
+         data-en="Sign in to fyndAll, then open Settings → Access and session → Delete my account. A recent sign-in and explicit confirmation protect this action."
+         data-es="Inicia sesión en fyndAll y abre Ajustes → Acceso y sesión → Eliminar mi cuenta. Un inicio de sesión reciente y una confirmación explícita protegen esta acción.">
+        Connecte-toi à fyndAll, puis ouvre Réglages → Accès et session → Supprimer mon compte. Une connexion récente et une confirmation explicite protègent cette action.
+      </p>
+      <div class="actions">
+        <a class="button primary" id="open-app" href="https://app.fyndall.app/"
+           data-fr="Ouvrir fyndAll"
+           data-en="Open fyndAll"
+           data-es="Abrir fyndAll">Ouvrir fyndAll</a>
+        <a class="button secondary" id="email-request" href="mailto:contact@fyndall.app"
+           data-fr="Demander de l’aide par e-mail"
+           data-en="Request help by email"
+           data-es="Solicitar ayuda por correo">Demander de l’aide par e-mail</a>
+      </div>
+    </section>
+
+    <footer>
+      <a id="home-link" href="/" data-fr="← Retour à l’accueil" data-en="← Back to home" data-es="← Volver al inicio">← Retour à l’accueil</a>
+      <a id="privacy-link" href="confidentialite.html" data-fr="Confidentialité" data-en="Privacy" data-es="Privacidad">Confidentialité</a>
+    </footer>
+  </main>
+
+  <script>
+    const supported = ['fr', 'en', 'es'];
+    const picker = document.querySelector('#language');
+    const logoHomeLink = document.querySelector('#logo-home-link');
+    const homeLink = document.querySelector('#home-link');
+    const privacyLink = document.querySelector('#privacy-link');
+    const openAppLink = document.querySelector('#open-app');
+    const emailRequestLink = document.querySelector('#email-request');
+    const pageCopy = {
+      fr: ['Supprimer mon compte — fyndAll', 'Supprimer un compte fyndAll et les données associées.', 'Demande de suppression de mon compte fyndAll'],
+      en: ['Delete my account — fyndAll', 'Delete a fyndAll account and associated data.', 'Request to delete my fyndAll account'],
+      es: ['Eliminar mi cuenta — fyndAll', 'Eliminar una cuenta de fyndAll y los datos asociados.', 'Solicitud de eliminación de mi cuenta de fyndAll']
+    };
+
+    function setLanguage(language) {
+      const selected = supported.includes(language) ? language : 'fr';
+      document.documentElement.lang = selected;
+      document.title = pageCopy[selected][0];
+      document.querySelector('meta[name="description"]').content = pageCopy[selected][1];
+      document.querySelectorAll('[data-fr]').forEach((element) => {
+        element.textContent = element.dataset[selected];
+      });
+      picker.value = selected;
+      logoHomeLink.href = `/?lang=${selected}`;
+      homeLink.href = `/?lang=${selected}`;
+      privacyLink.href = `confidentialite.html?lang=${selected}`;
+      openAppLink.href = `https://app.fyndall.app/?lang=${selected}`;
+      emailRequestLink.href = `mailto:contact@fyndall.app?subject=${encodeURIComponent(pageCopy[selected][2])}`;
+      localStorage.setItem('fyndall_site_language', selected);
+      const url = new URL(window.location.href);
+      url.searchParams.set('lang', selected);
+      window.history.replaceState(null, '', url);
+    }
+
+    const browserLanguage = (navigator.language || 'fr').slice(0, 2).toLowerCase();
+    const savedLanguage = localStorage.getItem('fyndall_site_language');
+    const requestedLanguage = new URLSearchParams(window.location.search).get('lang');
+    picker.addEventListener('change', (event) => setLanguage(event.target.value));
+    setLanguage(
+      supported.includes(requestedLanguage)
+        ? requestedLanguage
+        : supported.includes(savedLanguage)
+          ? savedLanguage
+          : browserLanguage
+    );
+  </script>
+</body>
+</html>
