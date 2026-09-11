@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assistance archive - fyndAll</title>
+  <meta name="description" content="Signaler un problème avec une archive documentaire fyndAll.">
+  <link rel="icon" href="assets/favicon/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/favicon_180.png">
+  <style>
+    :root { --blue:#2f6f9f; --blue-soft:#6a9ac0; --text:#111827; --muted:#667085; --line:rgba(17,24,39,.09); --surface:rgba(255,255,255,.86); --background:#f6f8fb; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; background:radial-gradient(circle at 50% 0,rgba(106,154,192,.2),transparent 30rem),linear-gradient(180deg,#fff 0%,var(--background) 100%); color:var(--text); }
+    .shell { width:min(680px,calc(100% - 32px)); margin:0 auto; }
+    nav { min-height:78px; display:flex; align-items:center; }
+    .logo { width:128px; display:block; }
+    main { padding:34px 0 72px; }
+    article { padding:clamp(26px,6vw,48px); border:1px solid var(--line); border-radius:30px; background:var(--surface); box-shadow:0 24px 70px rgba(47,111,159,.1); backdrop-filter:blur(18px); }
+    h1 { margin:0 0 14px; color:var(--blue); font-size:clamp(2rem,7vw,3.4rem); line-height:1.05; letter-spacing:-.045em; }
+    p { color:var(--muted); line-height:1.55; }
+    .notice { margin:22px 0; padding:15px 16px; border-radius:16px; background:#eef5fa; color:var(--muted); line-height:1.5; }
+    label { display:block; margin:18px 0 7px; font-weight:650; }
+    input,textarea { width:100%; padding:13px 14px; border:1px solid #c6d0da; border-radius:13px; background:#fff; color:var(--text); font:inherit; }
+    textarea { min-height:128px; resize:vertical; }
+    button { width:100%; margin-top:22px; padding:14px 18px; border:0; border-radius:999px; background:var(--blue-soft); color:#fff; font:inherit; font-weight:700; cursor:pointer; }
+    button:disabled { opacity:.55; cursor:wait; }
+    .hidden { display:none; }
+    .status { margin-top:20px; font-weight:650; }
+    .error { color:#c83d3d; }
+    .success { color:#087f5b; }
+    @media (max-width:560px) { main { padding-top:20px; } }
+  </style>
+</head>
+<body>
+  <nav class="shell"><a href="/" aria-label="fyndAll"><img class="logo" src="assets/logo/fyndall_logo_master.svg" alt="fyndAll"></a></nav>
+  <main class="shell"><article>
+    <h1>Assistance archive</h1>
+    <p>Tu peux signaler une archive incomplète ou illisible, même si ton compte fyndAll a déjà été supprimé.</p>
+    <div class="notice">La demande doit être faite avant la date indiquée dans l’e-mail d’archive. Ne joins aucun document, mot de passe ou code de connexion.</div>
+    <form id="request-form">
+      <label for="reference">Référence support</label><input id="reference" maxlength="32" pattern="[0-9A-Fa-f]{32}" autocomplete="off" required>
+      <label for="email">Adresse ayant reçu l’archive</label><input id="email" type="email" autocomplete="email" required>
+      <label for="report">Quel problème rencontres-tu ?</label><textarea id="report" minlength="10" maxlength="2000" required></textarea>
+      <button id="request-button" type="submit">Recevoir mon code de vérification</button>
+    </form>
+    <form id="verify-form" class="hidden">
+      <label for="code">Code reçu par e-mail</label><input id="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" required>
+      <button id="verify-button" type="submit">Vérifier et transmettre au support</button>
+    </form>
+    <p id="status" class="status" aria-live="polite"></p>
+  </article></main>
+  <script>
+    const endpoint='https://sxculvrepieflqqjtxfi.supabase.co/functions/v1/document-recovery-support';
+    const requestForm=document.getElementById('request-form'),verifyForm=document.getElementById('verify-form'),statusNode=document.getElementById('status');let challengeId='';
+    const value=id=>document.getElementById(id).value.trim();
+    const setStatus=(message,kind='')=>{statusNode.textContent=message;statusNode.className='status '+kind};
+    const reference=new URLSearchParams(location.search).get('reference')||'';if(/^[0-9a-f]{32}$/i.test(reference))document.getElementById('reference').value=reference.toUpperCase();
+    async function post(payload){const response=await fetch(endpoint,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(payload)});if(!response.ok)throw new Error('request_failed');return response.json()}
+    requestForm.addEventListener('submit',async event=>{event.preventDefault();const button=document.getElementById('request-button');button.disabled=true;setStatus('Envoi du code…');try{const data=await post({action:'request_code',support_reference:value('reference').toUpperCase(),email:value('email')});challengeId=data.challenge_id||'';verifyForm.classList.remove('hidden');setStatus('Si les informations correspondent, un code vient d’être envoyé. Il reste valable 10 minutes.')}catch(_){setStatus('Le service est momentanément indisponible. Réessaie plus tard.','error')}finally{button.disabled=false}});
+    verifyForm.addEventListener('submit',async event=>{event.preventDefault();const button=document.getElementById('verify-button');button.disabled=true;setStatus('Vérification…');try{const data=await post({action:'verify_code',challenge_id:challengeId,code:value('code'),support_reference:value('reference').toUpperCase(),email:value('email'),report:value('report')});if(data.verified&&data.reported){requestForm.classList.add('hidden');verifyForm.classList.add('hidden');setStatus('Demande transmise. L’équipe fyndAll dispose de la référence nécessaire pour vérifier ton archive.','success')}else if(data.verified){setStatus('Ton adresse est vérifiée, mais la demande n’a pas pu être transmise. Écris à contact@fyndall.app en indiquant la référence affichée.','error')}else{setStatus('Le code n’est pas valide ou a expiré. Vérifie-le puis réessaie.','error')}}catch(_){setStatus('La vérification est momentanément indisponible. Réessaie plus tard.','error')}finally{button.disabled=false}});
+  </script>
+</body>
+</html>
